@@ -8,14 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      name: {
+        type: Sequelize.STRING
+      },
       description: {
         type: Sequelize.STRING
       },
-      status: {
-        type: Sequelize.STRING
+      StatusId: {
+        type: Sequelize.INTEGER
       },
-      priority: {
-        type: Sequelize.STRING
+      PriorityId: {
+        type: Sequelize.INTEGER
+      },
+      CategoryId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
