@@ -1,7 +1,10 @@
-let express = require('express');
-let router = express.Router();
+const router = require('express').Router();
+const TaskController = require('../controllers/TaskController.js');
 
-/* GET users listing. */
-router.get('/', );
+router.get('/', TaskController.allTasks);                           // 1 ALL TASKS
+router.get('/:id', TaskController.oneTask);                         // 2 ONE TASK
+router.post('/', TaskController.addTask);                           // 3 ADD TASK
+router.put('/task:id', TaskController.updateTask);                  // 4 UPDATE TASK
+router.delete('/task:id', TaskController.deleteTask);               // 5 DELETE TASK
 
 module.exports = router;
