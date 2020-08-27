@@ -1,6 +1,7 @@
 const TaskModel = require('../db/models/Task.js');
 
 const TaskController = {
+    
     // GET ALL TASKS
     getAllTasks(req, res) {
         TaskModel.find() //include equivalent
