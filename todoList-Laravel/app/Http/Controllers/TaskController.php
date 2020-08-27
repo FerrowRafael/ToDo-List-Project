@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\Category;
 use App\Status;
+use App\Priority;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +17,13 @@ class TaskController extends Controller
 {
     // GET ALL TASKS
     public function getAllTasks(){ 
-        $tasks = Task::with('status', 'category')->get();
+        $tasks = Task::with('status', 'category', 'priority')->get();
         return $tasks;;
     }
 
     // TASK BY TASK ID
     public function getOneTask($id){ 
-
-        $task = Task::with('user', 'category', 'comment.user', 'likes')->find($id);
+        $task = Task::with('status', 'category', 'priority')->find($id);
         return $task;
     }
     
@@ -33,9 +33,9 @@ class TaskController extends Controller
             $body = $request->validate([
                 'name' => 'required|string',
                 'description' => 'required|string',
-                'status_id' => 'required',
-                'priority'=>'required|string',
-                'category_id' => 'required',
+                'status_id' => 'nullable',
+                'priority_id' => 'nullable',
+                'category_id' => 'nullable'
             ]);
             $task = Task::create($body);
         } catch (\Exception $e) {
@@ -46,34 +46,31 @@ class TaskController extends Controller
 
     // UPDATE TASK
     public function updateTask(Request $request, $id){
+        try {
         $task = Task::find($id);
-        if (Auth::id() === $task->user_id){
-            
             $task->update($request->all());
             return $task;
-            // return response([
-            //     'message' => 'Task modificado correctamente'
-            // ], 200);
-            
+            return response([
+                'message' => 'Task modificado correctamente'
+            ], 200);
+        
+        } 
+        catch (\Exception $e) {
+            return response([$e,'message' => 'Wrong Credentials']);
         }
-        return response([
-            'message' => 'Wrong Credentials'
-        ], 400,);
-        return $task;
     }
 
     // DELETE TASK
     public function deleteTask($id){
-        $task = Task::find($id);
-        if (Auth::id() !== $task->user_id){
-            return response([
-                'message' => 'Wrong Credentials'
-            ], 400);
-        }
-        // $task->delete();
+        try {
+        $task = Task::find($id)->delete();
         return response([
             'message' => 'Borrado correctamente'
         ], 200);
+        } 
+        catch (\Exception $e) {
+            return response([$e,'message' => 'Wrong Credentials']);
+        }      
     }
 
     
