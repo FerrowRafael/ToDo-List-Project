@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 // TASK
 Route::prefix('tasks')->group(function () {
-    Route::post('/', 'TaskController@getAllTasks');         // 1 ALL TASKS
-    Route::post('/{id}', 'TaskController@getOneTask');      // 2 ONE TASK
-    Route::get('/', 'TaskController@addTask');              // 3 ADD TASK
-    Route::get('/{id}', 'TaskController@updateTask');       // 4 UPDATE TASK    
-    Route::get('/{id}', 'TaskController@deleteTask');       // 5 DELETE TASK
+    Route::get('/', 'TaskController@getAllTasks');         // 1 ALL TASKS
+    Route::get('/{id}', 'TaskController@getOneTask');      // 2 ONE TASK
+    Route::post('/', 'TaskController@addTask');              // 3 ADD TASK
+    Route::put('/{id}', 'TaskController@updateTask');       // 4 UPDATE TASK    
+    Route::delete('/{id}', 'TaskController@deleteTask');       // 5 DELETE TASK
     
 });

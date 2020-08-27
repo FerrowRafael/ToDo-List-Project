@@ -3,83 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use App\Category;
+use App\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Collection;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    // GET ALL TASKS
+    public function getAllTasks(){ 
+        $tasks = Task::with('status', 'category')->get();
+        return $tasks;;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    // TASK BY TASK ID
+    public function getOneTask($id){ 
+
+        $task = Task::with('user', 'category', 'comment.user', 'likes')->find($id);
+        return $task;
+    }
+    
+    // ADD TASK
+    public function addTask(Request $request){
+        try {
+            $body = $request->validate([
+                'name' => 'required|string',
+                'description' => 'required|string',
+                'status_id' => 'required',
+                'priority'=>'required|string',
+                'category_id' => 'required',
+            ]);
+            $task = Task::create($body);
+        } catch (\Exception $e) {
+            return response($e,500);
+        }
+        return response($task, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    // UPDATE TASK
+    public function updateTask(Request $request, $id){
+        $task = Task::find($id);
+        if (Auth::id() === $task->user_id){
+            
+            $task->update($request->all());
+            return $task;
+            // return response([
+            //     'message' => 'Task modificado correctamente'
+            // ], 200);
+            
+        }
+        return response([
+            'message' => 'Wrong Credentials'
+        ], 400,);
+        return $task;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
-    {
-        //
+    // DELETE TASK
+    public function deleteTask($id){
+        $task = Task::find($id);
+        if (Auth::id() !== $task->user_id){
+            return response([
+                'message' => 'Wrong Credentials'
+            ], 400);
+        }
+        // $task->delete();
+        return response([
+            'message' => 'Borrado correctamente'
+        ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Task $task)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Task $task)
-    {
-        //
-    }
+    
 }
