@@ -1,25 +1,45 @@
-import React, { Component, Fragment } from 'react'
+import React, { useEffect, useState, Fragment } from 'react';
 // import './TodoForm.css'
+import axios from 'axios';
+import Service from '../../services/axios-service.js';
 
-class TodoForm extends Component {
+const TodoForm = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+    }, [])
     
-    render() {
-            return (
-            <Fragment >
-               {/* <form ref="form" onSubmit={this.onSubmit} className="form-inline">
-                    <input type="text" ref="itemName" className="form-control" placeholder="add a new todo..."/>
-                    <button type="submit" className="btn btn-default">Add</button> 
-                </form> */}
-            </Fragment>
-            )
+    const addTask = async (event) => {
+        event.preventDefault();
+        console.log(name)
+        await axios.post('http://localhost:8000/api/tasks', name, {
+    })
+        .then(res => {
+            alert('Task creado con éxito');
+            Service.tasksAll();
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+    }
+
+    const handleChange = event =>{
+        setName({ name: event.target.value});
+        console.log(setName)
+      }
+  
+    return (
+        <Fragment >
+           <form onSubmit={addTask} className="form-inline">
+                <input type="text" name="name" className="form-control" 
+                placeholder="Add a new todo..." onChange= {handleChange}/>
+                <button type="submit" className="btn btn-default">Add</button> 
+            </form>
+        </Fragment>
+    )
        
-    }  
+    
 }
 
 export default TodoForm;

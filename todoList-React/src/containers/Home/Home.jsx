@@ -1,21 +1,21 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import TodoListItem from '../../components/TodoListItem/TodoListItem';
 import TodoForm from '../../components/TodoForm/TodoForm';
-import axios from 'axios';
+// import axios from 'axios';
+import Service from '../../services/axios-service.js';
 // import './Home.scss'
 
 const Home = (props) => {
 
-    const [res, setRes] = useState([]);
+    const [res, setRes] = useState({});
     useEffect(() => {
-       tasksAll();
-    }, [])
-
-    async function tasksAll() {
-        const res = await axios.get('http://localhost:8000/api/tasks',{
+        tasksAll();
     })
-    console.log(res)
-    setRes(res);
+
+    const tasksAll = async() => {
+        let res = await Service.tasksAll()
+        console.log(res)
+        setRes(res);
     }
 
     return (
