@@ -9,7 +9,7 @@ const TodoListItem = ({ task }) => {
                 <p>{task.name}</p>
                 <p>{task.description}</p>
                 {/* <a href=""></a> */}
-                {/* <button onClick="delete()">Delete</button> */}
+                <button onClick="delete(task.id)">Delete</button>
             </div>
         </Fragment>
     )

@@ -22,6 +22,7 @@ const TodoForm = (props) => {
         .catch((error) => {
             console.error(error)
         })
+        Service.tasksAll()
     }
 
     const handleChange = event =>{
