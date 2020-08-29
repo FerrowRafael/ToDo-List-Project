@@ -1,0 +1,8 @@
+.task{
+    color: #333;
+    background-color: rgb(212, 205, 205);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    list-style: none;
+}

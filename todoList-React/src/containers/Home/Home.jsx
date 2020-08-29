@@ -5,24 +5,25 @@ import TodoForm from '../../components/TodoForm/TodoForm';
 import Service from '../../services/axios-service.js';
 // import './Home.scss'
 
-const Home = (props) => {
+const Home = () => {
 
-    const [res, setRes] = useState({});
+    const [task, setTask] = useState([]);
     useEffect(() => {
         tasksAll();
+        return
     })
 
     const tasksAll = async() => {
         let res = await Service.tasksAll()
-        console.log(res)
-        setRes(res);
+        console.log(res.data)
+        setTask(res.data);
     }
 
     return (
         <Fragment>
             <h2>TODO LIST REACT</h2>
             <div className='container'>
-                {(res.data)?.slice(0, 50).map(task => <TodoListItem key={task.id} task={task}/>)}
+                {(task)?.slice(0, 50).map(task => <TodoListItem key={task.id} task={task}/>)}
             </div> 
             <TodoForm/>
         </Fragment>

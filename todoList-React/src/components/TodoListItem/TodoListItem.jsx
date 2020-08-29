@@ -1,15 +1,21 @@
-import React, { Fragment } from 'react'
-// import './TodoListItem.css'
+import React, { Fragment } from 'react';
+import './TodoListItem.css';
+// import Service from '../../services/axios-service.js';
 
 const TodoListItem = ({ task }) => {
 
+    // const deleteTask = (id) => {
+    //     console.log(id)
+    //     Service.deleteTask(id)
+    // Service.tasksAll()
+    // }
+    
     return (
         <Fragment >
             <div className="task" key={task?.id}>
                 <p>{task.name}</p>
-                <p>{task.description}</p>
                 {/* <a href=""></a> */}
-                <button onClick="delete(task.id)">Delete</button>
+                {/* <button onClick={deleteTask(task.id)}>Delete</button> */}
             </div>
         </Fragment>
     )
