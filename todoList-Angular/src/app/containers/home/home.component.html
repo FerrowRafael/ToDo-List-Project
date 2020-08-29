@@ -1,0 +1,23 @@
+<!-- TABLA TASKS -->
+<div class="row">
+    <div class="col-sm-7">
+      <h2>Tasks: </h2>
+      <table class="table table-bordered">
+        <tbody>
+          <tr *ngFor="let task of tasks; let i = index">
+              <td>{{task.name}}</td>
+              <!-- <td>
+                  <a (click)="editProduct(i)" class="btn btn-success">
+                  Edit
+                  </a>
+                  <a (click)="deleteProduct(i)" class="btn btn-danger">
+                  Delete
+                  </a>
+              </td> -->
+          </tr>
+
+        </tbody>
+      </table>
+      <app-todo-form></app-todo-form>
+    </div>
+</div>

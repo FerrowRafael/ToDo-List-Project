@@ -1,0 +1,7 @@
+<h3>Create tast</h3>
+<div>
+    <form (submit)="addTask(name)">
+        <input [(ngModel)]="name"  (keyup.enter)="name=''" name="name" placeholder="Introduce a task">
+        <button type="submit" >Add Todo</button>
+    </form>
+</div>
