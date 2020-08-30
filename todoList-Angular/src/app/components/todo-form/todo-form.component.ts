@@ -27,7 +27,6 @@ export class TodoFormComponent implements OnInit {
           name: task,
     }
     console.log(this.todoTask)
-    // Process checkout data here
     this.tasksService.addTask(this.todoTask).subscribe((task: any) => {
       this.tasksService.getTasksAll() 
     })

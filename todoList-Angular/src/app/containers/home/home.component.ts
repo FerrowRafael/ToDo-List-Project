@@ -8,21 +8,13 @@ import { TasksService} from 'src/app/services/tasks.service';
 })
 export class HomeComponent implements OnInit {
 
-  tasks: any;
 
   constructor(
     private tasksService: TasksService,
   ) { }
 
   ngOnInit(): void {
-    this.allTasks()
   }
 
-  // SHOW TASKS
-  allTasks() {
-      this.tasksService.getTasksAll().subscribe((task: any) => {
-        this.tasks = task;
-      })
-  }
 
 }

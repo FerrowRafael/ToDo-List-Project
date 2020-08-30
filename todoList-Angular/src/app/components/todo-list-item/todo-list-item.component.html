@@ -1,1 +1,29 @@
-<p>todo-list-item works!</p>
+<!-- TABLA TASKS -->
+<div class="row">
+    <div class="col-sm-7">
+      <h2>Tasks: </h2>
+      <table class="table table-bordered">
+        <tbody>
+          <tr *ngFor="let task of tasks; let i = index">
+              <td>{{task.name}}</td>
+              <td>
+                  <!-- <a (click)="updateTask(i)" class="btn btn-success">
+                  Update
+                  </a> -->
+                  <button (click)="deleteTask(i)" class="btn btn-danger">
+                  Delete
+                  </button>
+              </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div className="updateForm">
+        <form (submit)="updateTask(i)">
+            <input [(ngModel)]="name"  (keyup.enter)="name=''" name="name" placeholder="Introduce a task">
+            <button type="submit" >Update Todo</button>
+        </form>
+    </div>
+</div>
