@@ -9,6 +9,9 @@ import { TasksService} from 'src/app/services/tasks.service';
 export class TodoListItemComponent implements OnInit {
 
   tasks: any;
+  hideUpdate:boolean = true;
+  myValue;
+  model:any = {};
 
   constructor(
     private tasksService: TasksService,
@@ -18,24 +21,31 @@ export class TodoListItemComponent implements OnInit {
     this.allTasks()
   }
 
+  editTask(i):void {
+    this.hideUpdate = false;
+    this.myValue = i;
+    this.model.name = this.tasks[i].name;
+    this.model.id = this.tasks[i].id;
+  }
+
   // UPDATE TASK
-  updateTask(i) {
-    let id = this.tasks[i]._id
-    this.tasksService.updateTask(this.tasks, id)
+  updateTask() {
+    console.log(this.model)
+    let id = this.model.id
+    console.log(id)
+    this.tasksService.updateTask(this.model, id)
     .subscribe((product: any) => {
-  });
-  
-  
+    });
   }
 
   // DELETE TASK
   deleteTask(i) {
     console.log(i, this.tasks[i].id)
     let id = this.tasks[i].id;
-        this.tasksService.deleteTask(id)
-        .subscribe((product: any) => {
-        })
-}
+    this.tasksService.deleteTask(id)
+    .subscribe((product: any) => {
+    })
+  }
 
   // SHOW TASKS
   allTasks() {

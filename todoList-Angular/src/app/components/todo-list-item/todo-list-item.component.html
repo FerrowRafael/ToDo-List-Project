@@ -7,9 +7,9 @@
           <tr *ngFor="let task of tasks; let i = index">
               <td>{{task.name}}</td>
               <td>
-                  <!-- <a (click)="updateTask(i)" class="btn btn-success">
+                  <button (click)="editTask(i)" class="btn btn-success">
                   Update
-                  </a> -->
+                  </button>
                   <button (click)="deleteTask(i)" class="btn btn-danger">
                   Delete
                   </button>
@@ -20,9 +20,9 @@
       </table>
     </div>
 
-    <div className="updateForm">
-        <form (submit)="updateTask(i)">
-            <input [(ngModel)]="name"  (keyup.enter)="name=''" name="name" placeholder="Introduce a task">
+    <div className="updateForm" [hidden]="hideUpdate">
+        <form (submit)="updateTask()">
+            <input [(ngModel)]="model.name"  (keyup.enter)="model.name=''" name="name" placeholder="Introduce a task">
             <button type="submit" >Update Todo</button>
         </form>
     </div>

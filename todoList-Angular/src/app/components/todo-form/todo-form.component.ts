@@ -28,7 +28,6 @@ export class TodoFormComponent implements OnInit {
     }
     console.log(this.todoTask)
     this.tasksService.addTask(this.todoTask).subscribe((task: any) => {
-      this.tasksService.getTasksAll() 
     })
   }
 
