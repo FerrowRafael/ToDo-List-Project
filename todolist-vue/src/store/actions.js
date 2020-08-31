@@ -12,8 +12,8 @@ export default {
         })
     },
 
-    CREATE_TASK ({ commit }) {
-        axios.post(`${API_URL}`)
+    CREATE_TASK ({ commit }, data) {
+        axios.post(`${API_URL}`, data)
         .then((res) => {
             if (res.status === 200) {
                 commit('ADD_TASK', res.data);

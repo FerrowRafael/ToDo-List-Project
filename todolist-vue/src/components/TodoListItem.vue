@@ -1,35 +1,38 @@
 <template>
-    <div class="todoListItem">
+    <ul class="todoListItem">
         <h3>Todo List</h3>
-        <div v-for="task in Tasks" :key="task.id">
+        <li v-for="task in Tasks" :key="task.id">
             <p>{{task.name}}</p>
             <button>Update</button>
-            <button>Delete</button>
-        </div>
-        <p>{{info}}</p>
-
-  </div>
+            <button class="nes-btn is-error padding" v-on:click="removeTask(task.id)">X</button>
+        </li>
+  </ul>
 </template>
 
 <script>
 export default {
-  name: 'TodoListItem',
-  data () {
-    return {
-    }
-  },
-  props: {
-  },
-
-    created() {
-    // ALL TASKS
-    this.$store.dispatch("GET_TASKS");
+    name: 'TodoListItem',
+    data () {
+        return {
+        }
     },
-
+    
+    created() {
+        // ALL TASKS
+        this.$store.dispatch("GET_TASKS");
+    },
+    methods: {
+        removeTask(id){
+            console.log(id)
+            this.$store.dispatch("DELETE_TASK", id);
+        }
+    },
     computed: {
     Tasks() {
       return this.$store.state.tasks
     },
+
+
   },
 }
 </script>

@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <TodoListItem/>
     <TodoForm/>
+    <TodoListItem/>
+    
   </div>
 </template>
 
