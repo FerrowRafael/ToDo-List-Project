@@ -1,7 +1,7 @@
 <template>
     <div class="todoListItem">
         <h3>Todo List</h3>
-        <div v-for="task in tasks" :key="task.id">
+        <div v-for="task in Tasks" :key="task.id">
             <p>{{task.name}}</p>
             <button>Update</button>
             <button>Delete</button>
@@ -12,23 +12,25 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: 'TodoListItem',
   data () {
     return {
-      tasks: null,
-      api_url:'http://localhost:8000/api/tasks'
     }
   },
   props: {
   },
 
-  mounted () {
-    axios
-      .get('http://localhost:8000/api/tasks')
-      .then(response => (this.tasks = response.data))
-  }
+    created() {
+    // ALL TASKS
+    this.$store.dispatch("GET_TASKS");
+    },
+
+    computed: {
+    Tasks() {
+      return this.$store.state.tasks
+    },
+  },
 }
 </script>
 
