@@ -35,7 +35,9 @@ const TaskController = {
 
     // UPDATE TASK
     updateTask(req, res) {
-        TaskModel.findByIdAndUpdate(req.params._id)
+        let body = req.body;
+        let id = req.params._id
+        TaskModel.findByIdAndUpdate(id, body)
             .then(task => res.send(task))
             .catch(error => {
                 console.error(error);

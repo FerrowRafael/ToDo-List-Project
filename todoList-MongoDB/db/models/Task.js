@@ -7,11 +7,10 @@ const TaskSchema = new mongoose.Schema({
         required: [true, 'El campo nombre es requerido']
     },
     description: {
-        type: String,
-        required: [true, 'El campo description es requerido']
+        type: String
     },
     status: {
-        type: String
+        type: Boolean
     },
     priority: {
         type: String
