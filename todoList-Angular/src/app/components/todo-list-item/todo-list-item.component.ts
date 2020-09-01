@@ -30,16 +30,17 @@ export class TodoListItemComponent implements OnInit {
 
   // UPDATE TASK
   updateTask() {
-    console.log(this.model)
+    let i = this.myValue;
+    this.tasks[i] = this.model;
     let id = this.model.id
-    console.log(id)
+    console.log(this.model, id)
     this.tasksService.updateTask(this.model, id)
-    .subscribe((product: any) => {
+    .subscribe((task: any) => {
     });
   }
 
   // DELETE TASK
-  deleteTask(i) {
+  removeTask(i) {
     console.log(i, this.tasks[i].id)
     let id = this.tasks[i].id;
     this.tasksService.deleteTask(id)
@@ -53,4 +54,9 @@ export class TodoListItemComponent implements OnInit {
       this.tasks = task;
     })
   }
+
+  // SHOW TOGGLE
+  // showUpdate(){
+  //   this.show = !this.show;
+  // }
 }

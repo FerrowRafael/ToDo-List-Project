@@ -1,7 +1,6 @@
 <!-- TABLA TASKS -->
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-7">
-      <h2>Tasks: </h2>
       <table class="table table-bordered">
         <tbody>
           <tr *ngFor="let task of tasks; let i = index">
@@ -26,4 +25,44 @@
             <button type="submit" >Update Todo</button>
         </form>
     </div>
+</div> -->
+
+<div>
+  <ul class="cards">
+      <li class="cards_item" *ngFor="let task of tasks; let i = index">
+          <div class="card">
+              <div class="card_content">
+                  <div class="card_title">{{task.name}}</div> 
+                  <div>
+                      <input type="checkbox" class="checkComplete" id="complete" name="complete" value="Complete" 
+                      [(ngModel)]="task.status">  
+                      <label for="complete"> Complete </label><br>  
+                  </div>
+                                 
+                  <div class="btns">
+                      <button class="btn btn--block" (click)="editTask(i)"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn--block" (click)="removeTask(task.id)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+
+                  <div class='status completed' [hidden]="!task.status" disabled>
+                    Completed
+                  </div>
+                  <div class='status pending' [hidden]="task.status">
+                    Pending
+                  </div>
+              </div>
+          </div>
+      </li>
+  </ul>
+
+  <!-- UPDATE TASK -->
+  <div [hidden]="hideUpdate" class="update-form">
+      <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="name"
+              required [(ngModel)]="model.name" name="name"
+              />
+      </div>
+      <button on-click="updateTask()" class="btn btn-success">Submit</button>     
+  </div>
 </div>
