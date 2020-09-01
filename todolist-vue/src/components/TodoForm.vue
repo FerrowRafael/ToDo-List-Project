@@ -7,24 +7,11 @@
                 required v-model="name" name="name"
                 />
             </div>
-            <button @click="saveTutorial" class="btn btn-success">Submit</button>       
+            <button @click="createTask" class="btn btn-success">Submit</button>       
         </div>
 
         <h3>Update task</h3>
-        <!-- <div class="update-form">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input
-                type="text"
-                class="form-control"
-                id="name"
-                required
-                v-model="name"
-                name="name"
-                />
-            </div>
-            <button @click="saveTutorial" class="btn btn-success">Submit</button>     
-        </div> -->
+        
     </div>
 </template>
 
@@ -41,7 +28,7 @@ export default {
 
 
     methods: {
-        saveTutorial() {
+        createTask() {
         let data = {
             name: this.name,  
             };
