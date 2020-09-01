@@ -1,15 +1,26 @@
 <template>
     <div>
-        <h3>Todo List</h3>
         <ul class="cards">
             <li class="cards__item" v-for="task in Tasks" :key="task.id">
                 <div class="card">
                     <div class="card__content">
-                        <div class="card__title">{{task.name}}</div>
-                        <p class="card__text">{{task.description}}</p>
+                        <div class="card__title">{{task.name}}</div> 
+                        <div>
+                            <input type="checkbox" class="checkComplete" id="complete" name="complete" value="Complete" 
+                            v-model="task.status" @click="checkboxToggle(category)">  
+                            <label for="complete"> Complete </label><br>  
+                        </div>
+                                       
                         <div class="btns">
                             <button class="btn btn--block" v-on:click="showUpdate"><i class="fas fa-edit"></i></button>
                             <button class="btn btn--block" v-on:click="removeTask(task.id)"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+
+                        <div class='status completed' v-show="task.status" disabled>
+                            Completed
+                        </div>
+                        <div class='status pending' v-show="!task.status">
+                            Pending
                         </div>
                     </div>
                 </div>
@@ -20,13 +31,8 @@
         <div v-show="show" class="update-form">
             <div class="form-group">
                     <label for="title">Title</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    required
-                    v-model="task"
-                    name="name"
+                    <input type="text" class="form-control" id="name"
+                    required v-model="task" name="name"
                     />
             </div>
             <button @click="removeTask(task.id)" class="btn btn-success">Submit</button>     
@@ -106,12 +112,13 @@ body {
 }
 
 .card {
-  background-color: white;
-  border-radius: 0.25rem;
-  box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 15rem;
 }
 
 .card__content {
@@ -122,37 +129,61 @@ body {
 }
 
 .card__title {
-  color: gray;
-  font-size: 1.25rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.card__text {
-  flex: 1 1 auto;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
+    color: gray;
+    background-color: bisque;
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    min-height: 7rem;
+    margin: auto !important;
+    padding: 10px;
+    width: 11.5rem
 }
 
 .btns{
     display: flex;
     flex-direction: row;
+    margin-top: 1rem;
 }
 
 .btn {
-  background-color: red;
   border: 1px solid gray;
   border-radius: 1rem;
   color: gray;
   padding: 0.5rem;
+  margin: 0.5rem;
   text-transform: lowercase;
   cursor: pointer;
+  justify-content: space-between;
 }
 
 .btn--block {
   display: block;
   width: 100%;
 }
+
+.status{
+    margin-top: 1rem;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0.5rem;
+}
+
+.pending{
+    border: 2px solid #e30000;
+    color: #e30000;
+}
+
+.completed{
+    border: 2px solid #1ae300;
+    color: #1ae300;
+    font-weight: bold;
+}
+
+.checkComplete{
+    margin-top: 1rem;
+}
+
 </style>
