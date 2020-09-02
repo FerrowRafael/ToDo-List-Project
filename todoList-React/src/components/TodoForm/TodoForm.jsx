@@ -1,8 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import './TodoForm.css'
-import axios from 'axios';
 // import Service from '../../services/axios-service.js';
-import { allTasks, deleteTask } from '../../redux/actions/';
+import { addTask, updateTask, allTasks } from '../../redux/actions/';
 
 const TodoForm = (props) => {
 
@@ -11,29 +10,30 @@ const TodoForm = (props) => {
     useEffect(() => {
     }, [])
     
-    const addTask = async (event) => {
+    const add_Task = event => {
         event.preventDefault();
-        console.log(name)
-        await axios.post('http://localhost:8000/api/tasks', name, {
-    })
+        let data={
+            name: event.target.name.value
+        }
+        console.log(data)
+        addTask(data)
         .then(res => {
-            alert('Task creado con éxito');
-            Service.tasksAll();
+            console.log('Task creado con éxito');
+            allTasks();
         })
         .catch((error) => {
             console.error(error)
         })
-        Service.tasksAll()
     }
 
     const handleChange = event =>{
-        setName({ name: event.target.value});
+        setName({ name: event.target.name.value});
         console.log(setName)
       }
   
     return (
         <Fragment >
-           <form onSubmit={addTask} className="example">
+           <form onSubmit={add_Task} className="example">
                 <input type="text" name="name" className="form-control" 
                 placeholder="Add a new todo..." onChange= {handleChange}/>
                 <button type="submit" className="btn btn-success">Add Task</button> 

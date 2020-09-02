@@ -18,7 +18,8 @@ export const allTasks = () => {
 }
 
 // INSERT TASK
-export const insert = async(task) => {
+export const addTask = async(task) => {
+    console.log(task)
     const res = await axios.post(`${API_URL}/tasks`, task);
     store.dispatch({ 
         type: 'INSERT_TASK',
@@ -28,7 +29,7 @@ export const insert = async(task) => {
 }
 
 // UPDATE TASK
-export const update = async(id, task) => {
+export const updateTask = async(id, task) => {
     await axios.put(`${API_URL}${id}/tasks`, task);
     // store.dispatch({ 
     //     type: 'UPDATE_TASK',
