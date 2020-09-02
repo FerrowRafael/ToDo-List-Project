@@ -1,34 +1,36 @@
 import React, { useState, useEffect, Fragment } from 'react';
+// import './Home.scss';
 import TodoListItem from '../../components/TodoListItem/TodoListItem';
 import TodoForm from '../../components/TodoForm/TodoForm';
 // import axios from 'axios';
-import Service from '../../services/axios-service.js';
-// import './Home.scss'
+// import Service from '../../services/axios-service.js';
+import { allTasks } from '../../redux/actions/';
+import { connect } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 
-const Home = () => {
+const Home = (props) => {
 
-    const [task, setTask] = useState([]);
     useEffect(() => {
-        tasksAll();
-        return
+        allTasks()
     })
 
-    const tasksAll = async() => {
-        let res = await Service.tasksAll()
-        console.log(res.data)
-        setTask(res.data);
-    }
-
+    const dispatch = useDispatch();
+    
+    useEffect( () => {
+        // Productos cuando el componente este listo
+        const cargarProductos = () => dispatch( allTasks() )
+        cargarProductos();
+        ;
+    }, [dispatch])
     return (
         <Fragment>
-            <h2>TODO LIST REACT</h2>
-            <div className='container'>
-                {(task)?.slice(0, 50).map(task => <TodoListItem key={task.id} task={task}/>)}
-            </div> 
             <TodoForm/>
+            <div className='container'>
+                {(props.tasks)?.slice(0, 50).map(task => <TodoListItem key={task.id} task={task}/>)}
+            </div> 
         </Fragment>
     )
-
 }
 
-export default Home;
+const mapStateToProps = (state) => ({ tasks: state.tasks })
+export default connect(mapStateToProps)(Home);

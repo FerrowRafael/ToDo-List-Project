@@ -1,7 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
-// import './TodoForm.css'
+import './TodoForm.css'
 import axios from 'axios';
-import Service from '../../services/axios-service.js';
+// import Service from '../../services/axios-service.js';
+import { allTasks, deleteTask } from '../../redux/actions/';
 
 const TodoForm = (props) => {
 
@@ -32,10 +33,10 @@ const TodoForm = (props) => {
   
     return (
         <Fragment >
-           <form onSubmit={addTask} className="form-inline">
+           <form onSubmit={addTask} className="example">
                 <input type="text" name="name" className="form-control" 
                 placeholder="Add a new todo..." onChange= {handleChange}/>
-                <button type="submit" className="btn btn-default">Add</button> 
+                <button type="submit" className="btn btn-success">Add Task</button> 
             </form>
         </Fragment>
     )
